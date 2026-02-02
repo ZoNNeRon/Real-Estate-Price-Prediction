@@ -15,6 +15,9 @@ class DataLoader:
     def load_ames_data(self):
         """Load Ames Housing dataset."""
         self.ames_df = pd.read_csv(self.ames_path)
+        if 'Order' in ames_df.columns:
+            ames_df = ames_df.drop(['Order', 'PID'], axis=1)
+        ames_df.columns = ames_df.columns.str.replace(' ', '')
         print(f"Ames data loaded: {self.ames_df.shape}")
         return self.ames_df
     

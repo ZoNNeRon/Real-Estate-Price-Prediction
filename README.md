@@ -28,14 +28,13 @@ This project evaluates **three machine learning algorithms** (Lasso, Random Fore
 
 ```
 Real-Estate-Price-Prediction/
-├── README.md                              # This file
+├── README.md                              # Project description
 ├── requirements.txt                       # Python dependencies
 ├── LICENSE                               # MIT License
 │
 ├── data/
 │   ├── ames/
-│   │   ├── train.csv                    # 1,460 house sales with 80+ features
-│   │   ├── test.csv                     # 1,459 test observations
+│   │   ├── AmesHousing.csv             # 2,930 house sales with 80 features
 │   │   └── data_dictionary.md           # Feature descriptions
 │   ├── malaysia/
 │   │   ├── malaysia_house_price_data_2025.csv  # 1,946 townships
@@ -135,7 +134,7 @@ Open `app/index.html` in a web browser to:
 
 | Aspect | Ames (USA) | Malaysia |
 |--------|-----------|----------|
-| **Observations** | 1,460 houses | 1,946 townships |
+| **Observations** | 2,930 houses | 1,946 townships |
 | **Features** | 82 attributes | 7 key variables |
 | **Price Range** | $34.9K - $755K | RM 27K - RM 11.4M |
 | **Avg Price** | $180,921 | RM 490,685 |
@@ -218,7 +217,7 @@ XGBoost            RM 273,477  RM 129,134 0.575 ✓ Best
 ### Key Insights
 
 #### 1. **Data Granularity Drives Accuracy**
-- U.S. dataset with 80+ specific attributes → 86.4% R²
+- U.S. dataset with 82 specific attributes → 86.4% R²
 - Malaysia dataset with 7 aggregate features → 57.5% R²
 - **Conclusion:** Feature richness, not algorithm sophistication, limits performance in emerging markets
 
@@ -263,7 +262,7 @@ Top 3 Features (XGBoost):
    - Creates additional features (e.g., State_Selangor, Type_Condo)
 
 3. **Feature Selection**
-   - Univariate statistical selection (Ames: ~40 features selected from 80+)
+   - Univariate statistical selection (Ames: ~40 features selected from 80)
    - Removes low-variance or uncorrelated features
 
 4. **Scaling & Normalization**
@@ -419,7 +418,7 @@ This project was developed as part of the **CCS5600 Machine Learning course** at
 
 1. **Malaysia Data Granularity**
    - Township-level aggregates limit individual property precision
-   - Sparse features (7 vs 82 in USA) constrain model
+   - Sparse features (7 vs 80 in USA) constrain model
    - Missing property-level details (condition, age, renovations)
 
 2. **Temporal Scope**
