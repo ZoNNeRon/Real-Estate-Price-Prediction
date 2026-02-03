@@ -1,26 +1,44 @@
 # Real Estate Price Prediction: A Comparative ML Study
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue) 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
-![Model Accuracy](https://img.shields.io/badge/Accuracy-86.4%25_US_%7C_57.5%25_MY-brightgreen)
-![Status](https://img.shields.io/badge/Status-Complete-success)
+A comprehensive machine learning project comparing predictive models across two distinct housing markets: **Ames, Iowa (USA)** and **Malaysia**. This analysis reveals how data quality and feature richness fundamentally impact model performance.
 
-## Executive Summary
-
-This project evaluates **three machine learning algorithms** (Lasso, Random Forest, XGBoost) for housing price prediction across **two markets with contrasting data structures**: 
-- **Ames, Iowa (USA)**: Mature market with granular, individual-level data (82 attributes)
-- **Malaysia (2025)**: Emerging market with aggregated, township-level data (7 key features)
-
-**Key Finding:** Data quality and granularity drive model performance more than algorithm complexity. Achieved **R² = 0.864** (±12.47% error) on U.S. market vs. **R² = 0.575** (±34.72% error) on Malaysian market—demonstrating market-specific models outperform universal approaches.
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-orange)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-2.0%2B-green)](https://xgboost.readthedocs.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
 
-## Project Goals
+## Key Findings
 
-1. **Compare ML algorithms** across markets with different data characteristics
-2. **Identify price drivers** for each market (structural attributes vs. location)
-3. **Quantify the impact** of data granularity on prediction accuracy
-4. **Build an interactive application** for real-time price estimation
+### **Feature Quality > Feature Quantity**
+
+| Market | Best Model | R² Score | Features | Samples | Top Driver |
+|--------|-----------|----------|----------|---------|------------|
+| 🇺🇸 **Ames (USA)** | XGBoost | **0.916** | 268 | 2,793 | Overall Quality (32.8%) |
+| 🇲🇾 **Malaysia** | XGBoost | **0.428** | 2,179 | 1,877 | Type_Flat (8.4%) |
+
+**Performance Gap:** Ames achieves **53% higher R²** despite having **8x fewer features** than Malaysia.
+
+**Why?** Property-specific features (quality, size, condition) are far more predictive than location-only data.
+
+---
+
+## Project Highlights
+
+### Ames (USA) Market
+- **Best Model:** XGBoost (R² = 0.916, MAE = $14,250)
+- **Top Features:** Overall Quality, Total Area, Garage Cars
+- **Prediction Accuracy:** ±$14,250 (highly reliable)
+- **Production Ready:** Suitable for automated property valuation
+
+### Malaysia Market
+- **Best Model:** XGBoost (R² = 0.428, MAE = RM 58,235)
+- **Top Features:** Property Type, State (Selangor, Kedah), Area
+- **Prediction Accuracy:** ±RM 58,000 (location-based estimates)
+- **Use Case:** Regional price benchmarking, not individual valuations
+
+**Note:** Malaysia's lower R² reflects fundamental data limitations (location-only features) rather than poor modelling.
 
 ---
 
@@ -35,22 +53,26 @@ Real-Estate-Price-Prediction/
 ├── data/
 │   ├── ames/
 │   │   ├── AmesHousing.csv             # 2,930 house sales with 80 features
-│   │   └── data_dictionary.md           # Feature descriptions
+│   │   └── data_dictionary.md           # Features description
 │   ├── malaysia/
 │   │   ├── malaysia_house_price_data_2025.csv  # 1,946 townships
-│   │   └── data_dictionary.md
+│   │   └── data_dictionary.md			  # Features description
 │   └── processed/                        # Preprocessed & feature-engineered data
+│         ├── ames_X_scaled.csv         # 2,793 × 268 features
+│         ├── ames_y.csv                # Sale prices
+│         ├── malaysia_X_scaled.csv     # 1,877 × 2,179 features
+│         └── malaysia_y.csv            # Median prices
 │
 ├── notebooks/                            # Jupyter notebooks with analysis
-│   ├── 00_Data_Loading_and_EDA.ipynb    # Initial exploration
-│   ├── 01_Ames_Exploratory_Analysis.ipynb
-│   ├── 02_Malaysia_Exploratory_Analysis.ipynb
-│   ├── 03_Data_Preprocessing.ipynb       # Cleaning & imputation
-│   ├── 04_Feature_Engineering.ipynb
-│   ├── 05_Model_Training_Ames.ipynb      # Train Lasso, RF, XGBoost
-│   ├── 06_Model_Training_Malaysia.ipynb
-│   ├── 07_Feature_Importance_Analysis.ipynb
-│   └── 08_Cross_Market_Comparison.ipynb  # Results & insights
+│   ├── 00_Data_Loading_and_EDA.ipynb          # Initial exploration
+│   ├── 01_Ames_Exploratory_Analysis.ipynb     # Ames deep dive
+│   ├── 02_Malaysia_Exploratory_Analysis.ipynb # Malaysia deep dive
+│   ├── 03_Data_Preprocessing.ipynb            # Outlier removal, cleaning
+│   ├── 04_Feature_Engineering.ipynb           # Feature creation & encoding
+│   ├── 05_Model_Training_Ames.ipynb           # XGBoost, RF, Lasso (Ames)
+│   ├── 06_Model_Training_Malaysia.ipynb       # XGBoost, RF, Lasso (Malaysia)
+│   ├── 07_Feature_Importance_Analysis.ipynb   # Feature interpretation
+│   └── 08_Cross_Market_Comparison.ipynb       # Comparative analysis
 │
 ├── src/                                  # Python modules
 │   ├── __init__.py                   # Initialisation file
@@ -74,7 +96,6 @@ Real-Estate-Price-Prediction/
 │   │   ├── ames_feature_importance.png
 │   │   ├── malaysia_feature_importance.png
 │   │   ├── model_performance_comparison.png
-│   │   └── cross_market_analysis.png
 │   └── model_metrics.csv                # Performance summary
 │
 ├── app/                                 # Interactive web application
@@ -120,235 +141,192 @@ jupyter notebook
 
 Start with `notebooks/00_Data_Loading_and_EDA.ipynb`
 
-### Using the Interactive App
-
-Open `app/index.html` in a web browser to:
-- View dataset statistics and visualizations
-- Compare model performance across markets
-- Make real-time price predictions
-- Explore market-specific price drivers
-
 ---
 
-## Dataset Overview
+## Model Performance
 
-| Aspect | Ames (USA) | Malaysia |
-|--------|-----------|----------|
-| **Observations** | 2,930 houses | 1,946 townships |
-| **Features** | 82 attributes | 7 key variables |
-| **Price Range** | $34.9K - $755K | RM 27K - RM 11.4M |
-| **Avg Price** | $180,921 | RM 490,685 |
-| **Time Period** | 2006-2010 | 2025 market |
-| **Data Type** | Transaction-level | Aggregated township |
+### Ames (USA) Results
 
-### Key Features
+| Model | R² Score | MAE | RMSE | Training Time |
+|-------|----------|-----|------|---------------|
+| **XGBoost** | **0.916** | $14,250 | $23,457 | ~15s |
+| Random Forest | 0.869 | $17,863 | $29,345 | ~45s |
+| Lasso | 0.865 | $18,235 | $29,876 | ~3s |
 
-**Ames (USA) - Structural Focus:**
-- OverallQual (house quality 1-10)
-- GrLivArea (living area in sqft)
-- GarageCars (garage capacity)
-- TotalBsmtSF (basement area)
-- YearBuilt (construction year)
+**Key Drivers:**
+1. **Overall Quality** (32.8%) - Property quality rating (1-10)
+2. **Total Area** (9.8%) - Basement + living area (sq ft)
+3. **Garage Cars** (8.5%) - Garage capacity (cars)
+4. **Kitchen Quality** (3.5%) - Kitchen condition rating
+5. **Exterior Quality** (2.8%) - Exterior material rating
 
-**Malaysia - Location Focus:**
-- MedianPSF (price per square foot)
-- Area (township location)
-- State (geographical region)
-- Type (property category)
-- Tenure (freehold/leasehold)
+Top 5 features explain **57.4%** of total importance.
 
----
+### Malaysia Results
 
-## Machine Learning Models
+| Model | R² Score | MAE | RMSE | Training Time |
+|-------|----------|-----|------|---------------|
+| **XGBoost** | **0.428** | RM 58,235 | RM 89,456 | ~8s |
+| Random Forest | 0.389 | RM 62,146 | RM 95,235 | ~25s |
+| Lasso | 0.312 | RM 71,257 | RM 105,678 | ~2s |
 
-### Models Used
+**Key Drivers:**
+1. **Type_Flat** (8.4%) - Property type indicator
+2. **State_Selangor** (3.2%) - Location in Selangor state
+3. **State_Kedah** (2.1%) - Location in Kedah state
+4. **Area_Tebrau** (1.6%) - Specific area encoding
+5. **Tenure_Leasehold** (1.5%) - Property tenure type
 
-| Model | Type | Best For | Ames R² | Malaysia R² |
-|-------|------|----------|---------|------------|
-| **Lasso Regression** | Linear | Interpretability | 0.833 | 0.537 |
-| **Random Forest** | Tree-Ensemble | Non-linear patterns | 0.847 | 0.510 |
-| **XGBoost** | Gradient Boosting | Overall accuracy | **0.864** | **0.575** |
-
-### Hyperparameter Tuning
-
-**Lasso:**
-- Alpha: Optimized via cross-validation (LassoCV)
-- Uses StandardScaler for normalization
-
-**Random Forest:**
-- n_estimators: 100 trees
-- max_depth: 15 (Ames), 10 (Malaysia)
-- random_state: 42 (reproducibility)
-
-**XGBoost:**
-- max_depth: 6 (tree depth)
-- learning_rate: 0.1
-- n_estimators: 100 iterations
-- Handles both linear and non-linear patterns
-
----
-
-## Results & Findings
-
-### Model Performance
-
-#### Ames Housing Market (U.S.)
-```
-Model              RMSE      MAE        R²
-─────────────────────────────────────────
-Lasso              $35,738   $21,312    0.833
-Random Forest      $34,308   $19,644    0.847
-XGBoost            $32,280   $19,761    0.864 ✓ Best
-```
-
-**Interpretation:** XGBoost explains **86.4%** of price variance with **±12.47%** average error. Excellent for predicting individual home prices in this market.
-
-#### Malaysia Housing Market
-```
-Model              RMSE        MAE        R²
-──────────────────────────────────────────
-Lasso              RM 285,485  RM 143,303 0.537
-Random Forest      RM 293,729  RM 127,439 0.510
-XGBoost            RM 273,477  RM 129,134 0.575 ✓ Best
-```
-
-**Interpretation:** XGBoost explains **57.5%** of price variance with **±34.72%** average error. Moderate accuracy due to aggregated township-level data with limited granular features.
-
-### Key Insights
-
-#### 1. **Data Granularity Drives Accuracy**
-- U.S. dataset with 82 specific attributes → 86.4% R²
-- Malaysia dataset with 7 aggregate features → 57.5% R²
-- **Conclusion:** Feature richness, not algorithm sophistication, limits performance in emerging markets
-
-#### 2. **Market-Specific Price Drivers**
-
-**USA: Structural Attributes Dominate**
-```
-Top 3 Features (XGBoost):
-1. OverallQual (16.9%)  - House quality
-2. GarageCars (16.1%)   - Garage capacity
-3. GrLivArea (12.3%)    - Living area
-→ Americans pay premium for craftsmanship & practicality
-```
-
-**Malaysia: Location Dominance**
-```
-Top 3 Features (XGBoost):
-1. MedianPSF (13.0%)    - Location premium
-2. Area_KLCC (12.8%)    - KL proximity
-3. State_Selangor (11.5%)
-→ Malaysians pay for location access and development tier
-```
-
-#### 3. **Algorithm Selection Matters Conditionally**
-- In data-rich environments: XGBoost gains ~3% over simpler models
-- In data-sparse environments: Simpler Lasso and RF compete with XGBoost
-- **Best Practice:** Match model complexity to data richness
+Top 5 features explain only **16.8%** - importance spread across many location features.
 
 ---
 
 ## Methodology
 
-### Data Preprocessing Pipeline
+### Data Preprocessing
+1. **Outlier Detection & Removal**
+   - Ames: 137 outliers removed (IQR method)
+   - Malaysia: 123 outliers removed (IQR method)
 
-1. **Missing Value Handling**
-   - Removed features with >50% missing data
-   - Numeric: Median imputation
-   - Categorical: Mode imputation
+2. **Missing Value Handling**
+   - Categorical: Filled with 'None' where appropriate
+   - Numerical: Median imputation
 
-2. **Categorical Encoding**
+3. **Feature Engineering**
+   - **Ames:** Created 6 new features (Total Area, House Age, Renovation Indicator, etc.)
+   - **Malaysia:** Relied on categorical encoding of existing features
+
+4. **Encoding & Scaling**
    - One-hot encoding for categorical variables
-   - Creates additional features (e.g., State_Selangor, Type_Condo)
+   - StandardScaler for numerical features
+   - Ames: 82 → 268 features | Malaysia: 8 → 2,179 features
 
-3. **Feature Selection**
-   - Univariate statistical selection (Ames: ~40 features selected from 80)
-   - Removes low-variance or uncorrelated features
-
-4. **Scaling & Normalization**
-   - StandardScaler: (X - mean) / std
-   - Essential for Lasso (L1 regularization sensitive to scale)
-   - Applied separately to train/validation sets
-
-### Model Training Pipeline
-
-```python
-# Pseudocode
-1. Load data
-   → X_train, X_test, y_train, y_test (80/20 split)
-
-2. Preprocess
-   → Handle missing values
-   → Encode categorical variables
-   → Scale features
-
-3. Train models
-   → Lasso (with cross-validation for alpha)
-   → Random Forest (100 trees, max_depth optimized)
-   → XGBoost (sequential boosting)
-
-4. Evaluate
-   → Metrics: R², RMSE, MAE
-   → Feature importance extraction
-   → Cross-market comparison
-
-5. Visualize
-   → Price distributions
-   → Feature importance charts
-   → Model performance comparison
-   → Residual analysis
-```
+### Model Training
+- **Train-Test Split:** 80/20
+- **Models Tested:** XGBoost, Random Forest, Lasso Regression
+- **Evaluation Metrics:** R², MAE, RMSE
+- **Cross-Validation:** Applied during hyperparameter tuning
 
 ---
 
-## Key Learnings
+## Key Insights
 
-### For ML Engineers
-1. **Data quality >> algorithm sophistication** - Clean, granular data beats complex models trained on sparse data
-2. **Market context matters** - Same algorithm behaves differently across markets; tune independently
-3. **Feature engineering crucial** - Location extraction in Malaysia showed 10-15% improvement potential
-4. **Cross-validation essential** - Particularly for Lasso to prevent overfitting with correlated features
+### 1. Data Quality Beats Data Quantity
+Ames' **268 property-specific features** outperform Malaysia's **2,179 location-based features** by a massive margin (R² 0.916 vs 0.428).
 
-### For Real Estate Professionals
-1. **U.S. market:** Use detailed property specs + XGBoost for high-accuracy valuations
-2. **Malaysia market:** Supplement township-level data with external indicators (transit distance, school proximity)
-3. **Market differences:** Can't use U.S. model directly on Malaysian data; location matters more there
-4. **Data investment:** Collecting granular property-level data would improve Malaysian predictions by 20-30%
+**Lesson:** Collect features that directly measure value drivers (quality, size, condition) rather than proxies (location).
+
+### 2. Feature Concentration Indicates Predictive Power
+- **Ames:** Top 5 features = 57.4% importance (strong, concentrated drivers)
+- **Malaysia:** Top 5 features = 16.8% importance (weak, distributed predictors)
+
+High concentration → Clear value drivers. Low concentration → Noisy, indirect predictors.
+
+### 3. XGBoost is Robust Across Markets
+XGBoost wins in BOTH markets despite vastly different data characteristics:
+- Ames: +5.4% R² over Random Forest
+- Malaysia: +10.0% R² over Random Forest
+
+**Why?** Handles mixed data types, categorical encodings, and complex interactions better than alternatives.
+
+### 4. Lower R² Can Be Correct
+Malaysia's R² = 0.428 is **expected and accurate** given:
+- No property size data (square footage, bedrooms)
+- No condition/quality ratings
+- No age/amenities information
+- Location alone explains only ~43% of price variance
+
+**This is impressive for location-only prediction!**
 
 ---
 
-## Interactive Application Features
+## Visualization Highlights
 
-### 5 Main Tabs
+### Cross-Market R² Comparison
+![R² Comparison](results/visualizations/model_performance_comparison.png)
 
-#### 1. **Overview & Statistics**
-- Dataset comparison (Ames vs Malaysia)
-- Key metrics (R², RMSE, MAE)
-- Model performance summary
+### Interactive Dashboard
+The `app/` folder contains a fully interactive web dashboard showcasing:
+- Side-by-side market comparisons
+- Model performance metrics
+- Top features with visual bars
+- Business recommendations
 
-#### 2. **Ames Market Deep Dive**
-- Price distribution histogram
-- Top 10 feature importance bar chart
-- Market statistics (avg price, median, std dev)
+**[View Live Demo](app/index.html)** *(Open locally after cloning)*
 
-#### 3. **Malaysia Market Deep Dive**
-- Township-level price distribution
-- Feature importance for Malaysia
-- Location-based price breakdown
+---
 
-#### 4. **Cross-Market Comparison**
-- Side-by-side R² comparison
-- Feature importance differences
-- Market characteristic matrix
+## Technologies Used
 
-#### 5. **Live Price Predictor**
-- **USA Tab:**
-  - Inputs: Quality (1-10), Living Area (sqft), Garage Capacity, Basement Quality
-  - Output: Estimated price ± 12.47% confidence interval
-  
-- **Malaysia Tab:**
-  - Inputs: Price/Sq Ft (RM), Property Type, Location Premium, Market Activity
-  - Output: Estimated median township price ± 34.72% confidence interval
+| Category | Tools |
+|----------|-------|
+| **Languages** | Python 3.9+ |
+| **ML Libraries** | scikit-learn, XGBoost, pandas, numpy |
+| **Visualization** | matplotlib, seaborn |
+| **Notebooks** | Jupyter Lab/Notebook |
+| **Web Dashboard** | HTML5, CSS3, JavaScript (Vanilla) |
+
+## Business Recommendations
+
+### For Ames (USA) Market
+**Deploy XGBoost for Production**
+
+**Use Cases:**
+- Automated property valuation systems
+- Real-time listing price recommendations
+- Market trend forecasting
+- Investment property analysis
+
+**Expected Accuracy:** ±$14,250 (reliable for decision-making)
+
+**Focus Areas:** Emphasise property condition, quality ratings, and size metrics in listings.
+
+### For Malaysia Market
+**Use XGBoost for Regional Analysis Only**
+
+**Use Cases:**
+- Regional price benchmarking (state/area comparisons)
+- Market segmentation analysis
+- Preliminary price estimates
+
+**Expected Accuracy:** ±RM 58,000 (too high for individual valuations)
+
+**To Improve:** Collect property-specific data:
+- Square footage / property size
+- Number of bedrooms/bathrooms
+- Building age
+- Floor level
+- Amenities (pool, gym, parking)
+- Renovation status/condition ratings
+
+**With this data, R² could increase to 0.70-0.85 (similar to Ames).**
+
+---
+
+## Learning Outcomes
+
+This project demonstrates:
+
+1. **Feature Engineering Impact**
+   - Creating meaningful features dramatically improves performance
+   - Domain knowledge > automated feature generation
+
+2. **Data Quality vs. Model Complexity**
+   - Better data > better algorithms
+   - Malaysia's XGBoost can't overcome data limitations
+
+3. **Cross-Market Generalisation**
+   - XGBoost architecture works universally
+   - But performance ceiling depends on data, not model
+
+4. **Practical ML Workflow**
+   - Complete pipeline: EDA → Preprocessing → Engineering → Training → Evaluation
+   - Reproducible, modular code structure
+   - Production-ready model deployment considerations
+
+5. **Business Communication**
+   - Translating R² scores into actionable insights
+   - Understanding when models are (and aren't) suitable for production
 
 ---
 
@@ -358,12 +336,6 @@ Top 3 Features (XGBoost):
 1. Open `notebooks/00_Data_Loading_and_EDA.ipynb` to understand data
 2. Follow notebooks in numerical order (01 → 08)
 3. Each notebook is self-contained but builds on previous analysis
-
-### For Price Prediction
-1. Open `app/index.html` in web browser
-2. Navigate to "Live Price Predictor" tab
-3. Adjust sliders/inputs for your property
-4. View estimated price with confidence range
 
 ### For Integration
 ```python
