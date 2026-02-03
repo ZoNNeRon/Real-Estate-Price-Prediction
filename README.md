@@ -15,8 +15,8 @@ A comprehensive machine learning project comparing predictive models across two 
 
 | Market | Best Model | R² Score | Features | Samples | Top Driver |
 |--------|-----------|----------|----------|---------|------------|
-| 🇺🇸 **Ames (USA)** | XGBoost | **0.916** | 268 | 2,793 | Overall Quality (32.8%) |
-| 🇲🇾 **Malaysia** | XGBoost | **0.428** | 2,179 | 1,877 | Type_Flat (8.4%) |
+| 🇺🇸 **Ames (USA)** | XGBoost | **0.916** | 268 | 2,930 | Overall Quality (32.8%) |
+| 🇲🇾 **Malaysia** | XGBoost | **0.428** | 2,179 | 2,000 | Type_Flat (8.4%) |
 
 **Performance Gap:** Ames achieves **53% higher R²** despite having **8x fewer features** than Malaysia.
 
@@ -27,15 +27,15 @@ A comprehensive machine learning project comparing predictive models across two 
 ## Project Highlights
 
 ### Ames (USA) Market
-- **Best Model:** XGBoost (R² = 0.916, MAE = $14,250)
+- **Best Model:** XGBoost (R² = 0.907, MAE = $12,864)
 - **Top Features:** Overall Quality, Total Area, Garage Cars
-- **Prediction Accuracy:** ±$14,250 (highly reliable)
+- **Prediction Accuracy:** ±$12,864 (highly reliable)
 - **Production Ready:** Suitable for automated property valuation
 
 ### Malaysia Market
-- **Best Model:** XGBoost (R² = 0.428, MAE = RM 58,235)
+- **Best Model:** XGBoost (R² = 0.427, MAE = RM 114,488)
 - **Top Features:** Property Type, State (Selangor, Kedah), Area
-- **Prediction Accuracy:** ±RM 58,000 (location-based estimates)
+- **Prediction Accuracy:** ±RM 114,488 (location-based estimates)
 - **Use Case:** Regional price benchmarking, not individual valuations
 
 **Note:** Malaysia's lower R² reflects fundamental data limitations (location-only features) rather than poor modelling.
@@ -107,6 +107,7 @@ Real-Estate-Price-Prediction/
 │
 ├── docs/                                # Documentation
       ├── RESEARCH_ARTICLE.pdf			# Project summary
+      └── Project_Presentation.pdf               # Final presentation
 ```
 
 ---
