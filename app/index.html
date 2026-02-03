@@ -1,0 +1,501 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Price Predictor - Dual Market Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🏠 Real Estate Price Predictor</h1>
+                <p class="subtitle">Dual Market Analysis: USA & Malaysia</p>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-section="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-section="calculator">💰 Calculator</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h2 class="section-title">Model Performance Dashboard</h2>
+                
+                <!-- Market Selector -->
+                <div class="market-selector">
+                    <button class="market-btn active" data-market="ames">🇺🇸 Ames, USA</button>
+                    <button class="market-btn" data-market="malaysia">🇲🇾 Malaysia</button>
+                </div>
+
+                <!-- Ames Market Dashboard -->
+                <div id="ames-dashboard" class="market-dashboard active">
+                    <div class="dashboard-header">
+                        <h3>🇺🇸 Ames Housing Market (USA)</h3>
+                        <p class="market-info">Dataset: 2,930 properties | Period: 2006-2010</p>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <!-- XGBoost Card -->
+                        <div class="metric-card best">
+                            <div class="card-header">
+                                <h4>XGBoost ⭐</h4>
+                                <span class="badge best-badge">BEST MODEL</span>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.9067</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">$18,632</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">$12,864</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 90.67%"></div>
+                            </div>
+                            <p class="model-note">Excellent performance - Captures non-linear relationships</p>
+                        </div>
+
+                        <!-- Random Forest Card -->
+                        <div class="metric-card">
+                            <div class="card-header">
+                                <h4>Random Forest</h4>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.8891</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">$20,305</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">$14,035</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 88.91%"></div>
+                            </div>
+                            <p class="model-note">Very good ensemble performance</p>
+                        </div>
+
+                        <!-- Lasso Card -->
+                        <div class="metric-card">
+                            <div class="card-header">
+                                <h4>Lasso Regression</h4>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.8284</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">$25,261</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">$14,652</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 82.84%"></div>
+                            </div>
+                            <p class="model-note">Solid linear baseline model</p>
+                        </div>
+                    </div>
+
+                    <!-- Key Insights -->
+                    <div class="insights-section">
+                        <h4>📈 Key Insights - Ames Market</h4>
+                        <div class="insights-grid">
+                            <div class="insight-card">
+                                <div class="insight-icon">🎯</div>
+                                <h5>Prediction Accuracy</h5>
+                                <p>Excellent - 90.67% variance explained by XGBoost model</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">📊</div>
+                                <h5>Average Error</h5>
+                                <p>RMSE of $18,632 on validation set</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">🏆</div>
+                                <h5>Best Use Case</h5>
+                                <p>Suitable for property valuation and investment decisions</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">💡</div>
+                                <h5>Key Features</h5>
+                                <p>Overall Quality, GrLivArea, Neighborhood drive predictions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Malaysia Market Dashboard -->
+                <div id="malaysia-dashboard" class="market-dashboard">
+                    <div class="dashboard-header">
+                        <h3>🇲🇾 Malaysia Housing Market</h3>
+                        <p class="market-info">Dataset: 1,500+ properties | Period: 2025</p>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <!-- XGBoost Card -->
+                        <div class="metric-card best">
+                            <div class="card-header">
+                                <h4>XGBoost ⭐</h4>
+                                <span class="badge best-badge">BEST MODEL</span>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.4271</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">RM 156,786</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">RM 114,488</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 42.71%"></div>
+                            </div>
+                            <p class="model-note">Moderate performance - Price-per-sqft dominates</p>
+                        </div>
+
+                        <!-- Random Forest Card -->
+                        <div class="metric-card">
+                            <div class="card-header">
+                                <h4>Random Forest</h4>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.3714</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">RM 164,222</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">RM 118,821</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 37.14%"></div>
+                            </div>
+                            <p class="model-note">Moderate ensemble performance</p>
+                        </div>
+
+                        <!-- Lasso Card -->
+                        <div class="metric-card">
+                            <div class="card-header">
+                                <h4>Lasso Regression</h4>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <span class="metric-label">R² Score</span>
+                                    <span class="metric-value">0.3200</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RMSE</span>
+                                    <span class="metric-value">RM 170,805</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">MAE</span>
+                                    <span class="metric-value">RM 126,425</span>
+                                </div>
+                            </div>
+                            <div class="performance-bar">
+                                <div class="bar-fill" style="width: 32%"></div>
+                            </div>
+                            <p class="model-note">Linear baseline model</p>
+                        </div>
+                    </div>
+
+                    <!-- Key Insights -->
+                    <div class="insights-section">
+                        <h4>📈 Key Insights - Malaysia Market</h4>
+                        <div class="insights-grid">
+                            <div class="insight-card">
+                                <div class="insight-icon">🎯</div>
+                                <h5>Prediction Accuracy</h5>
+                                <p>Moderate - 42.71% variance explained by XGBoost model</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">📊</div>
+                                <h5>Average Error</h5>
+                                <p>RMSE of RM 156,786 on validation set</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">💼</div>
+                                <h5>Best Use Case</h5>
+                                <p>Use as reference; market volatility affects precision</p>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-icon">🏙️</div>
+                                <h5>Key Features</h5>
+                                <p>Price/sqft, Location (KLCC, Bukit Bintang) drive prices</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cross-Market Comparison -->
+                <div class="comparison-section">
+                    <h3>🔄 Cross-Market Comparison</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Factor</th>
+                                    <th>🇺🇸 Ames (USA)</th>
+                                    <th>🇲🇾 Malaysia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Best Model R²</strong></td>
+                                    <td>0.9067 (90.67% variance)</td>
+                                    <td>0.4271 (42.71% variance)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prediction Quality</strong></td>
+                                    <td>Excellent</td>
+                                    <td>Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Driver</strong></td>
+                                    <td>Overall Quality, GrLivArea</td>
+                                    <td>Price/sqft (dominant 77%)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Average Price</strong></td>
+                                    <td>$180,921</td>
+                                    <td>RM 490,685</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Market Stability</strong></td>
+                                    <td>High (mature market)</td>
+                                    <td>Moderate (emerging patterns)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Feature Importance</strong></td>
+                                    <td>Distributed (multiple factors)</td>
+                                    <td>Concentrated (few key features)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="section">
+            <div class="container">
+                <h2 class="section-title">💰 Price Calculator</h2>
+                
+                <!-- Market Selector for Calculator -->
+                <div class="market-selector">
+                    <button class="market-btn active" data-market="ames-calc">🇺🇸 Ames, USA</button>
+                    <button class="market-btn" data-market="malaysia-calc">🇲🇾 Malaysia</button>
+                </div>
+
+                <!-- Ames Calculator -->
+                <div id="ames-calc" class="calculator-form active">
+                    <div class="form-header">
+                        <h3>🇺🇸 Ames Property Price Estimator</h3>
+                        <p>Enter property details to estimate the price</p>
+                    </div>
+
+                    <form id="ames-form" class="calc-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ames-quality">Overall Quality (1-10)</label>
+                                <input type="number" id="ames-quality" min="1" max="10" value="7" required>
+                                <small>1 = Very Poor, 10 = Very Excellent</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ames-area">Above Ground Living Area (sqft)</label>
+                                <input type="number" id="ames-area" min="500" max="6000" value="1500" required>
+                                <small>Typical range: 800-3000 sqft</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ames-year">Year Built</label>
+                                <input type="number" id="ames-year" min="1900" max="2010" value="2000" required>
+                                <small>Dataset range: 1872-2010</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ames-garage">Garage Car Capacity</label>
+                                <select id="ames-garage" required>
+                                    <option value="0">No Garage</option>
+                                    <option value="1">1 Car</option>
+                                    <option value="2" selected>2 Cars</option>
+                                    <option value="3">3 Cars</option>
+                                    <option value="4">4+ Cars</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ames-basement">Total Basement Area (sqft)</label>
+                                <input type="number" id="ames-basement" min="0" max="3000" value="1000" required>
+                                <small>0 = No Basement</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ames-bathrooms">Full Bathrooms</label>
+                                <select id="ames-bathrooms" required>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calc-btn">Calculate Price 🚀</button>
+                    </form>
+
+                    <div id="ames-result" class="result-box" style="display: none;">
+                        <h4>Estimated Price</h4>
+                        <div class="price-display">
+                            <span class="currency">$</span>
+                            <span id="ames-price" class="price-value">0</span>
+                        </div>
+                        <div class="price-range">
+                            <p>Confidence Range:</p>
+                            <p class="range-text">
+                                $<span id="ames-min">0</span> - $<span id="ames-max">0</span>
+                            </p>
+                        </div>
+                        <p class="model-used">Model Used: <strong>XGBoost (R² = 0.9067)</strong></p>
+                        <small class="disclaimer">*Estimate based on XGBoost model with ±$18,632 RMSE</small>
+                    </div>
+                </div>
+
+                <!-- Malaysia Calculator -->
+                <div id="malaysia-calc" class="calculator-form">
+                    <div class="form-header">
+                        <h3>🇲🇾 Malaysia Property Price Estimator</h3>
+                        <p>Enter property details to estimate the price</p>
+                    </div>
+
+                    <form id="malaysia-form" class="calc-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="my-size">Property Size (sqft)</label>
+                                <input type="number" id="my-size" min="400" max="10000" value="1200" required>
+                                <small>Typical range: 600-3000 sqft</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="my-psf">Price per SqFt (RM)</label>
+                                <input type="number" id="my-psf" min="100" max="3000" value="600" required>
+                                <small>Key pricing factor - varies by location</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="my-location">Location</label>
+                                <select id="my-location" required>
+                                    <option value="klcc">KLCC (Premium)</option>
+                                    <option value="bukit_bintang">Bukit Bintang (High-end)</option>
+                                    <option value="mont_kiara">Mont Kiara (Expat Area)</option>
+                                    <option value="damansara" selected>Damansara (Popular)</option>
+                                    <option value="cheras">Cheras (Affordable)</option>
+                                    <option value="other">Other Areas</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="my-rooms">Rooms</label>
+                                <select id="my-rooms" required>
+                                    <option value="1">Studio</option>
+                                    <option value="2">2 Rooms</option>
+                                    <option value="3" selected>3 Rooms</option>
+                                    <option value="4">4 Rooms</option>
+                                    <option value="5">5+ Rooms</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="my-bathrooms">Bathrooms</label>
+                                <select id="my-bathrooms" required>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4+</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="my-parking">Parking Bays</label>
+                                <select id="my-parking" required>
+                                    <option value="0">No Parking</option>
+                                    <option value="1" selected>1 Bay</option>
+                                    <option value="2">2 Bays</option>
+                                    <option value="3">3+ Bays</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calc-btn">Calculate Price 🚀</button>
+                    </form>
+
+                    <div id="malaysia-result" class="result-box" style="display: none;">
+                        <h4>Estimated Price</h4>
+                        <div class="price-display">
+                            <span class="currency">RM</span>
+                            <span id="malaysia-price" class="price-value">0</span>
+                        </div>
+                        <div class="price-range">
+                            <p>Confidence Range:</p>
+                            <p class="range-text">
+                                RM <span id="malaysia-min">0</span> - RM <span id="malaysia-max">0</span>
+                            </p>
+                        </div>
+                        <p class="model-used">Model Used: <strong>XGBoost (R² = 0.4271)</strong></p>
+                        <small class="disclaimer">*Estimate based on XGBoost model with ±RM 156,786 RMSE</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Real Estate Price Predictor | Machine Learning Project</p>
+            <p>Data Sources: Ames Housing Dataset & Malaysia Property Data 2025</p>
+            <p class="github-link">
+                <a href="https://github.com/ZoNNeRon/Real-Estate-Price-Prediction" target="_blank">
+                    📁 View on GitHub
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -58,9 +58,11 @@ Real-Estate-Price-Prediction/
 │   │   ├── malaysia_house_price_data_2025.csv  # 1,946 townships
 │   │   └── data_dictionary.md			  # Features description
 │   └── processed/                        # Preprocessed & feature-engineered data
+│         ├── ames_cleaned.csv 		# Cleaned Ames dataset
 │         ├── ames_X_scaled.csv         # 2,793 × 268 features
 │         ├── ames_y.csv                # Sale prices
-│         ├── malaysia_X_scaled.csv     # 1,877 × 2,179 features
+│         ├── malaysia_cleaned.csv 		# Cleaned Malaysia dataset
+│         ├── malaysia_X_scaled.csv     # 1,877 × 2,179 features (too bid ~90MB, can’t be uploaded)
 │         └── malaysia_y.csv            # Median prices
 │
 ├── notebooks/                            # Jupyter notebooks with analysis
@@ -413,10 +415,9 @@ This project was developed as part of the **CCS5600 Machine Learning course** at
 ## Author
 
 **Dmitrii Vasilov**
-- Data Science Student | UPM
+- Data Science Student | Innopolis University (Full-time) | UPM (Exchange, 1 semester)
 - LinkedIn: https://www.linkedin.com/in/dmitrii-vasilov-bb6a603a8/
 - Email: DMVasilov@yandex.ru
-- Location: Selangor, Malaysia
 
 ---
 
